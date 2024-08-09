@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>My Profile</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash-message flash-{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+        <!-- User Details -->
+        <section>
+            <h3>User Details</h3>
+            <p><strong>ID:</strong> {{ id }}</p>
+            <p><strong>Role:</strong> {{ user_type }}</p>
+            <p><strong>Name:</strong> {{ name }}</p>
+            <p><strong>Contact Number:</strong> {{ user.contact_number }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </section>
+
+        <!-- Change Password -->
+        <a href="{{ url_for('reset_password', user_id=id, user_type=user_type)}}">Reset Password</a>
+    </div>
+</body>
+</html>

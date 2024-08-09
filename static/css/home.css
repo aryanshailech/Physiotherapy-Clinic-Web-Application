@@ -1,0 +1,177 @@
+body {
+    padding-top: 140px; /* Adjust this value based on the header height */
+}
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    margin-top: 20px; /* Adjust as needed to create space below header */
+}
+
+
+/* Welcome Section */
+.welcome {
+    background: linear-gradient(to right, #007bfbcb, #00d2ff); /* Updated gradient background */
+    color: #fff; /* White text color */
+    padding: 60px 0; /* Example padding */
+    text-align: center; /* Center-align text */
+}
+
+.welcome h1 {
+    font-size: 48px; /* Larger font size */
+    margin-bottom: 20px; /* Space below heading */
+    letter-spacing: 2px; /* Spacing between letters */
+    font-weight: 700; /* Bold font weight */
+}
+
+.welcome .clinic-name-highlight {
+    font-style: italic; /* Italic text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Text shadow for better readability */
+}
+
+.welcome p {
+    font-size: 20px; /* Larger font size */
+    margin-bottom: 10px; /* Reduced space below paragraph */
+    max-width: 800px; /* Maximum width */
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5; /* Line height for readability */
+}
+
+.learn-more-link {
+    color: #003d80; /* Shade of blue matching website color pattern */
+    font-size: 20px; /* Increased font size */
+    text-decoration: underline; /* Underline link */
+    cursor: pointer;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.learn-more-link:hover {
+    color: #001f4d; /* Darker shade of blue on hover */
+}
+
+/* Services Section */
+.services {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 60px 0;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    margin-right: 60px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.service-item {
+    text-align: left;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.service-item img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.service-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 16px;
+    color: #666;
+}
+
+.team-section {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+.team-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    margin: 15px;
+}
+
+.team-member img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.team-member p {
+    font-size: 1em;
+    color: #777;
+}
+
+.reviews-section {
+    padding: 50px 0;
+    background-color: #f1f1f1;
+}
+
+.reviews-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.reviews {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.review {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+    width: calc(33% - 40px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.review p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.review h3 {
+    font-size: 1.2em;
+    color: #333;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioClinic</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reviews.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <section id="intro">
+        <h2>What Our Patients Say</h2>
+        <p>At Agrawal Physiotherapy Clinic, we pride ourselves on providing exceptional care and support to our patients. Here are some of the wonderful things our patients have to say about their experiences with us.</p>
+    </section>
+    
+    <section id="reviews">
+        <div class="review">
+            <div class="review-info">
+                <h3>John Doe <span class="review-date">- June 5, 2024</span></h3>
+                <p>"I had a severe back injury from a car accident, and Dr. Agrawal's treatment has been a game-changer. The personalized care and attention to detail were outstanding. I can now move freely without pain."</p>
+            </div>
+        </div>
+        
+        <div class="review">
+            <div class="review-info">
+                <h3>Jane Smith <span class="review-date">- July 10, 2024</span></h3>
+                <p>"As a senior, I struggled with mobility issues for years. Dr. Priya Sharma's geriatric physiotherapy program has significantly improved my balance and strength. I feel more independent and confident now."</p>
+            </div>
+        </div>
+        
+        <div class="review">
+            <div class="review-info">
+                <h3>Emily Johnson <span class="review-date">- May 20, 2024</span></h3>
+                <p>"My son has cerebral palsy, and Dr. Rajesh Patel's pediatric physiotherapy sessions have been incredibly beneficial. His kind and playful approach makes therapy enjoyable for my child, and we have seen remarkable progress."</p>
+            </div>
+        </div>
+        
+        <div class="review">
+            <div class="review-info">
+                <h3>Michael Brown <span class="review-date">- August 15, 2024</span></h3>
+                <p>"After suffering a stroke, I needed extensive rehabilitation. Dr. Neha Gupta's neurological physiotherapy expertise has helped me regain my mobility and improve my quality of life. I am forever grateful for her dedication and support."</p>
+            </div>
+        </div>
+        
+        <div class="review">
+            <div class="review-info">
+                <h3>Linda Williams <span class="review-date">- April 25, 2024</span></h3>
+                <p>"I have asthma and struggled with breathing issues for years. Dr. Sameer Verma's cardiovascular physiotherapy program has made a tremendous difference in my lung capacity and overall fitness. Thank you for giving me a new lease on life!"</p>
+            </div>
+        </div>
+    </section>
+    
+{% include 'footer.html' %}
+</body>
+</html>

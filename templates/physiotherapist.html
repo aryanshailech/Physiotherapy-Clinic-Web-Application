@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physiotherapist Dashboard</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/physiotherapist.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('physiotherapist_page') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Welcome to Physiotherapist Dashboard, {{user_name}}!</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="flash-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      
+
+        <!-- Section: Patient List -->
+        <section>
+                {% for patient in patients %}
+                    <li>{{ patient.patient_name }} - {{ patient.patient_id }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Section: Add Treatment -->
+        <section>
+            <h3>Add Treatment</h3>
+            <form action="/add_treatment" method="POST">
+                <label for="patientId">Patient ID:</label>
+                <input type="text" id="patientId" name="patientId" required><br><br>
+
+                <label for="diagnosis">Diagnosis:</label>
+                <input type="text" id="diagnosis" name="diagnosis" required><br><br>
+
+                <label for="treatment">Treatment:</label>
+                <textarea id="treatment" name="treatment" rows="4" required></textarea><br><br>
+
+                <input type="submit" value="Add Treatment">
+            </form>
+        </section>
+        
+        <!-- Section: Patient History -->
+        <section>
+            <h3>Patient History</h3>
+            <form action="/patient_history" method="POST">
+                <label for="patient_name">Patient Name:</label>
+                <input type="text" id="patient_name" name="patient_name"><br><br>
+                <h4 style="text-align: center;">OR</h4>
+                <label for="patient_id">Patient ID:</label>
+                <input type="number" id="patient_id" name="patient_id"><br><br>
+                
+                <input type="submit" value="View History">
+            </form>
+        </section>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Receptionists</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view.css') }}">
+</head>
+<body>
+    <h1>Receptionists</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash-message flash-{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Contact Number</th>
+                <th>Address</th>
+                <th>Aadhar Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recept in receptionists %}
+            <tr>
+                <td>{{ recept.receptionist_id }}</td>
+                <td>{{ recept.receptionist_name }}</td>
+                <td>{{ recept.contact_number }}</td>
+                <td>{{ recept.address }}</td>
+                <td>{{ recept.aadhar_number }}</td>
+                <td>{{ recept.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

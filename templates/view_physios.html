@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Physiotherapists</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view.css') }}">
+</head>
+<body>
+    <h1>Physiotherapists</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash-message flash-{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Aadhar Number</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for physio in physiotherapists %}
+            <tr>
+                <td>{{ physio.physiotherapist_id }}</td>
+                <td>{{ physio.physiotherapist_name }}</td>
+                <td>{{ physio.specialization }}</td>
+                <td>{{ physio.aadhar_number }}</td>
+                <td>{{ physio.contact_number }}</td>
+                <td>{{ physio.email }}</td>
+                <td>{{ physio.address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

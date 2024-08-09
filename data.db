@@ -1,0 +1,132 @@
+-- Create Patient table
+CREATE TABLE Patient (
+    patient_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_name VARCHAR(255) NOT NULL,
+    age INT DEFAULT NULL,
+    sex ENUM('Male', 'Female', 'Other') DEFAULT NULL,
+    physiotherapist_name VARCHAR(255) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Physiotherapist table
+CREATE TABLE Physiotherapist (
+    physiotherapist_id INT AUTO_INCREMENT PRIMARY KEY,
+    physiotherapist_name VARCHAR(255) NOT NULL,
+    specialization VARCHAR(255) DEFAULT NULL,
+    aadhar_number VARCHAR(20) UNIQUE DEFAULT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL
+);
+
+-- Create Physiotherapist_Login table
+CREATE TABLE Physiotherapist_Login (
+    physiotherapist_id INT PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    FOREIGN KEY (physiotherapist_id) REFERENCES Physiotherapist(physiotherapist_id)
+);
+
+-- Create Receptionist table
+CREATE TABLE Receptionist (
+    receptionist_id INT AUTO_INCREMENT PRIMARY KEY,
+    receptionist_name VARCHAR(255) NOT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+    aadhar_number VARCHAR(20) UNIQUE DEFAULT NULL,
+    email VARCHAR(255) UNIQUE DEFAULT NULL
+);
+
+-- Create Receptionist_Login table
+CREATE TABLE Receptionist_Login (
+    receptionist_id INT PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    FOREIGN KEY (receptionist_id) REFERENCES Receptionist(receptionist_id)
+);
+
+-- Create Treatment table
+CREATE TABLE Treatment (
+    physiotherapist_id INT,
+    patient_id INT,
+    diagnosis VARCHAR(255) DEFAULT NULL,
+    treatment VARCHAR(255) DEFAULT NULL,
+    datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (physiotherapist_id) REFERENCES Physiotherapist(physiotherapist_id),
+    FOREIGN KEY (patient_id) REFERENCES Patient(patient_id)
+);
+
+-- Create Admin table
+CREATE TABLE Admin (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_name VARCHAR(255) NOT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+    aadhar_number VARCHAR(20) UNIQUE DEFAULT NULL,
+    email VARCHAR(255) UNIQUE DEFAULT NULL
+);
+
+CREATE TABLE Admin_Login (
+    admin_id INT PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES Admin(admin_id)
+);
+
+-- Create Users table
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL
+);
+
+-- Create PasswordResetRequests table with a foreign key constraint
+CREATE TABLE PasswordResetRequests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    otp VARCHAR(6),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- Insert entries into Admin table
+INSERT INTO Admin (admin_id, admin_name, contact_number, address, aadhar_number, email) VALUES
+(10, 'Ravi Kumar', '9876543210', '123 MG Road, Mumbai', 'A123456789', 'ravi.kumar@example.com'),
+(11, 'Priya Sharma', '8765432109', '456 Brigade Road, Bangalore', 'B987654321', 'priya.sharma@example.com');
+
+-- Insert entries into Admin_Login table
+INSERT INTO Admin_Login (admin_id, password) VALUES
+(10, '10'),
+(11, '11');
+
+-- Insert entries into Patient table
+INSERT INTO Patient (patient_name, age, sex, physiotherapist_name, address, contact_number, email) VALUES
+('Rajesh Gupta', 45, 'Male', 'Dr. Suman', '789 Park Street, Kolkata', '9123456789', 'rajesh.gupta@example.com'),
+('Anita Desai', 30, 'Female', 'Dr. Suman', '101 Ring Road, Delhi', '9234567890', 'anita.desai@example.com');
+
+-- Insert entries into Physiotherapist table
+INSERT INTO Physiotherapist (physiotherapist_id, physiotherapist_name, specialization, aadhar_number, contact_number, email, address) VALUES
+(1000, 'Dr. Suman', 'Orthopedic', 'C123456789', '9345678901', 'suman@example.com', '11 Gandhi Road, Chennai'),
+(1001, 'Dr. Arjun', 'Neurology', 'D987654321', '9456789012', 'arjun@example.com', '22 Nehru Street, Hyderabad');
+
+-- Insert entries into Physiotherapist_Login table
+INSERT INTO Physiotherapist_Login (physiotherapist_id, password) VALUES
+(1000, '1000'),
+(1001, '1001');
+
+-- Insert entries into Receptionist table
+INSERT INTO Receptionist (receptionist_id, receptionist_name, contact_number, address, aadhar_number, email) VALUES
+(100, 'Seema Verma', '9567890123', '33 Patel Road, Pune', 'E123456789', 'seema.verma@example.com'),
+(101, 'Amit Jain', '9678901234', '44 Ambedkar Street, Jaipur', 'F987654321', 'amit.jain@example.com');
+
+-- Insert entries into Receptionist_Login table
+INSERT INTO Receptionist_Login (receptionist_id, password) VALUES
+(100, '100'),
+(101, '101');
+
+-- Insert entries into Treatment table
+INSERT INTO Treatment (physiotherapist_id, patient_id, diagnosis, treatment) VALUES
+(1000, 1, 'Knee Pain', 'Physical therapy exercises'),
+(1001, 2, 'Back Pain', 'Stretching and strengthening exercises');
+

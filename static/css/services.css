@@ -1,0 +1,43 @@
+body {
+    padding-top: 140px; /* Adjust this value based on the header height */
+}
+
+h1{
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+section {
+    padding: 2em;
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 0.5em;
+}
+
+.service-section .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.service-section .content img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 1em 1em 0;
+    flex: 1 1 40%;
+}
+
+.service-section .content .text {
+    flex: 1 1 60%;
+}
+
+.service-section:nth-child(even) .content {
+    flex-direction: row-reverse;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin_page') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h2 style="text-align: center;">Welcome to Admin Dashboard, {{user_name}}!</h2>
+     <!-- Flash Messages -->
+     {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash-message flash-{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <hr>
+    <h3>Add Physiotherapist</h3>
+    <form action="/add_physio" method="POST">
+        <label for="physio_name">Physiotherapist Name:</label>
+        <input type="text" id="physio_name" name="physio_name" required><br><br>
+        
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization"><br><br>
+        
+        <label for="aadhar_number">Aadhar Number:</label>
+        <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
+        
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number"><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br><br>
+        
+        <label for="password">Password (optional):</label>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <input type="submit" value="Add Physiotherapist">
+    </form>
+    <hr>
+    <h3>Remove Physiotherapist</h3>
+    <form action="/remove_physio" method="POST">
+        <label for="physiotherapist_id">Physiotherapist ID:</label>
+        <input type="number" id="physiotherapist_id" name="physiotherapist_id" required><br><br>
+        
+        <input type="submit" value="Remove Physiotherapist">
+    </form>
+    <hr>
+    <h3>Add Receptionist</h3>
+    <form action="/add_receptionist" method="POST">
+        <label for="receptionist_name">Receptionist Name:</label>
+        <input type="text" id="receptionist_name" name="receptionist_name" required><br><br>
+        
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number"><br><br>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br><br>
+        
+        <label for="aadhar_number">Aadhar Number:</label>
+        <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="password">Password (optional):</label>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <input type="submit" value="Add Receptionist">
+    </form>
+    <hr>
+    <h3>Remove Receptionist</h3>
+    <form action="/remove_receptionist" method="POST">
+        <label for="receptionist_id">Receptionist ID:</label>
+        <input type="number" id="receptionist_id" name="receptionist_id" required><br><br>
+        
+        <input type="submit" value="Remove Receptionist">
+    </form>
+    <hr>
+    <a href="/view_physios">View All Physiotherapists</a><br><br>
+    <a href="/view_recepts">View All Receptionists</a><br><br>
+    <a href="/receptionist_page">Go to Receptionist Dashboard</a><br><br>
+    </section>
+    
+    {% include 'foot.html' %}
+</body>
+</html>

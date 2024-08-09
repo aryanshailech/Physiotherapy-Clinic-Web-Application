@@ -1,0 +1,109 @@
+/* Footer Section */
+footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Social Media, Contact Info, and Quick Links Section */
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1 1 calc(33.333% - 20px);
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    color: #333;
+    margin-top: 0;
+}
+
+/* Social Media Section */
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.social-icons a:hover {
+    color: #555;
+}
+
+.clinic-logo {
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+/* Contact Information Section */
+.contact-info {
+    text-align: center;
+}
+
+.contact-info p {
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* Quick Links Section */
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Map Section */
+.map-section {
+    width: 100%;
+}
+
+.map-section iframe {
+    width: 100%;
+    height: 200px;
+    border: 0;
+}
+
+/* General Styling */
+h3 {
+    margin-top: 0;
+}
+
+p {
+    margin: 5px 0;
+}

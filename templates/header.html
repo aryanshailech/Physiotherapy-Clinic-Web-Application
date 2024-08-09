@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioClinic</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/homel.png') }}" alt="PhysioClinic Logo" class="logo-img">
+                <span class="clinic-name">Agrawal Physiotherapy Clinic</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('team') }}">Team</a></li>
+                    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+                    
+                </ul>
+            </nav>
+            <div class="contact-info">
+                <a href="tel:(+91)9422625147">call us</a>
+                  <form action="{{ url_for('loginpage') }}">
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+
+            </div>
+        </div>
+    </header>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioClinic</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <section id="intro">
+        <h2>Meet Our Experts</h2>
+        <p>Our team of highly skilled and experienced physiotherapists is dedicated to providing the best care and support to help you achieve your health and wellness goals. Get to know our team members below.</p>
+    </section>
+    
+    <section id="team">
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='images/founder_img.jpg') }}" alt="Dr. Shailesh Agrawal" class="left">
+            <div class="member-info">
+                <h3>Dr. Shailesh Agrawal</h3>
+                <p><strong>Founder & Chief Physiotherapist</strong></p>
+                <p>Dr. Shailesh Agrawal, a highly experienced physiotherapist, founded the clinic with a vision to offer personalized and effective treatment to patients. With over 20 years of experience in the field, Dr. Agrawal has been instrumental in the clinic's success.</p>
+                <p>Dr. Agrawal graduated from GMC Nagpur with a degree in Physiotherapy and further specialized in orthopedic physiotherapy. He has been actively involved in research and has published numerous papers on innovative physiotherapy techniques. His dedication to patient care and continuous learning has earned him respect and recognition within the medical community.</p>
+                <p>Under his leadership, Agrawal Physiotherapy Clinic has received multiple awards and accolades, solidifying its reputation as a trusted healthcare provider. Dr. Agrawal continues to inspire his team with his passion for excellence and unwavering commitment to patient well-being.</p>
+            </div>
+        </div>
+        
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='images/sr_pt_home.avif') }}" alt="Dr. Puneet Singh" class="right">
+            <div class="member-info">
+                <h3>Dr. Puneet Singh</h3>
+                <p><strong>Senior Physiotherapist</strong></p>
+                <p>With a strong background in geriatric physiotherapy, Dr. Puneet Singh has been helping older adults maintain their independence and improve their quality of life for over 15 years. His compassionate approach and expertise in balance training make her a valuable asset to our team.</p>
+                <p>Dr. Singh earned her Master's degree in Geriatric Physiotherapy from Mumbai University and has since dedicated his career to improving elderly care. He has developed specialized programs for fall prevention and mobility enhancement, which have greatly benefited his patients.</p>
+                <p>In his free time, Dr. Singh volunteers at local senior centers and enjoys gardening.</p>
+            </div>
+        </div>
+        
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='images/Paediatric_pt.avif') }}" alt="Dr. Priya Sharma" class="left">
+            <div class="member-info">
+                <h3>Dr. Priya Sharma</h3>
+                <p><strong>Paediatric Physiotherapist</strong></p>
+                <p>Dr. Priya Sharma specializes in pediatric physiotherapy, focusing on diagnosing, preventing, and treating developmental disorders in children. His friendly demeanor and expertise in play-based therapy help children achieve their developmental milestones.</p>
+                <p>Dr. Sharma holds a Doctorate in Pediatric Physiotherapy from DEF University and is a certified specialist in treating conditions such as cerebral palsy and congenital disabilities. He is known for his innovative therapy techniques that incorporate play and creativity to engage young patients.</p>
+                <p>A father of two, Dr. Sharma enjoys spending time with his family and is actively involved in youth sports programs in the community.</p>
+            </div>
+        </div>
+        </div>
+        
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='images/Neurological_pt.webp') }}" alt="Dr. Sarah Khan" class="right">
+            <div class="member-info">
+                <h3>Dr. Sarah Khan</h3>
+                <p><strong>Neurological Physiotherapist</strong></p>
+                <p>Dr. Sarah Khan has extensive experience in treating patients with neurological conditions such as stroke, Parkinson’s Disease, and Multiple Sclerosis. Her dedication to restoring mobility and improving the quality of life for her patients is truly inspiring.</p>
+                <p>She received her Doctorate in Neurological Physiotherapy from GHI University and has conducted numerous workshops and training sessions for other healthcare professionals. Dr. Khan is also involved in clinical research and has contributed to several breakthrough studies in neurological rehabilitation.</p>
+                <p>Dr. Khan loves hiking and exploring nature, and she often incorporates outdoor activities into her therapy sessions.</p>
+            </div>
+        </div>
+        
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='images/Cardiovascular_pt.avif') }}" alt="Dr. Sameer Verma" class="left">
+            <div class="member-info">
+                <h3>Dr. Sameer Verma</h3>
+                <p><strong>Cardiovascular Physiotherapist</strong></p>
+                <p>Specializing in cardiovascular physiotherapy, Dr. Sameer Verma helps patients with heart and lung conditions improve their endurance and respiratory function. His personalized exercise programs and patient education initiatives are highly effective.</p>
+                <p>Dr. Verma graduated with a Doctorate in Cardiovascular Physiotherapy from JKL University and has since been at the forefront of developing cardiac rehabilitation programs. His work in respiratory therapy has also been recognized for its positive impact on patients with chronic conditions such as asthma.</p>
+                <p>In his spare time, Dr. Verma enjoys cycling and has participated in several charity bike rides to raise awareness for heart health.</p>
+            </div>
+        </div>
+    </section>
+    
+{% include 'footer.html' %}
+</body>
+</html>

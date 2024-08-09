@@ -1,0 +1,76 @@
+body {
+    padding-top: 140px; /* Adjust this value based on the header height */
+}
+h1{
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+section {
+    padding: 2em 1em;
+    max-width: 1000px;
+    margin: 2em auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    color: #4CAF50;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 2em;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+#team .team-member {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2.5em;
+    padding: 1.5em;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+#team .team-member:hover {
+    transform: translateY(-5px);
+}
+
+#team .team-member img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 1.5em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+#team .team-member:nth-child(even) img {
+    order: 2;
+    margin-left: 1.5em;
+    margin-right: 0;
+}
+
+#team .team-member .member-info {
+    flex: 1 1 70%;
+}
+
+#team .team-member .member-info p {
+    margin: 0.5em 0;
+}
+

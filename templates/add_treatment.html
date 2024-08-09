@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Treatment</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_treatment.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Add Treatment</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="flash-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      
+        <form action="/add_treatment" method="POST">
+            <label for="patientId">Patient ID:</label>
+            <input type="text" id="patientId" name="patientId" required><br><br>
+
+            <label for="diagnosis">Diagnosis:</label>
+            <input type="text" id="diagnosis" name="diagnosis" required><br><br>
+
+            <label for="treatment">Treatment:</label>
+            <textarea id="treatment" name="treatment" rows="4" required></textarea><br><br>
+
+            <input type="submit" value="Add Treatment">
+        </form>
+    </div>
+</body>
+</html>

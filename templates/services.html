@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioClinic</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <section id="intro">
+        <h2>Physiotherapy Treatments</h2>
+        <p>Physiotherapy is generally described as a treatment method commonly used in preventing injury, promoting health, and maximizing physical strength. However, when you take a closer look, you’ll notice that it’s actually a kind of umbrella term under which physical therapy practices and treatments fall. Below, we explore the common types of physiotherapy and the conditions they treat.</p>
+    </section>
+    
+    <section id="sports-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/sports.jpg') }}" alt="Sports Physiotherapy" class="left">
+            <div class="text">
+                <h3>Sports Physiotherapy</h3>
+                <p>Sporting activities are more physically demanding than normal activities, making athletes more vulnerable to muscle strains and tendon injuries. Sports physiotherapists specialize in diagnosing and treating sports-related injuries, and they can help you recover faster from a sports injury and boost your overall performance.</p>
+                <p>Our sports physiotherapy services include personalized exercise programs, manual therapy, and injury prevention strategies to keep you at your best. Whether you're recovering from an injury or looking to enhance your performance, our experts are here to help.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="geriatric-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/geriatric.jpg') }}" alt="Geriatric Physiotherapy" class="right">
+            <div class="text">
+                <h3>Geriatric Physiotherapy</h3>
+                <p>Older people tend to have diminished muscle strength, slow reflexes, and reduced balance and coordination. Most have overlapping health issues that need special exercises to manage. Geriatric physiotherapy focuses on conditions common in older adults, such as loss of motion, arthritis, and Alzheimer’s disease, helping to manage and alleviate symptoms.</p>
+                <p>Our geriatric physiotherapy services include balance training, strength exercises, and mobility enhancement to help older adults maintain independence and improve their quality of life.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="orthopaedic-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/orthopedic.jpg') }}" alt="Orthopaedic Physiotherapy" class="left">
+            <div class="text">
+                <h3>Orthopaedic Physiotherapy</h3>
+                <p>Back, neck, and knee injuries often cause chronic pain and result in immobility and general weakness. Orthopaedic physiotherapy can get you back on track after a life-threatening injury or illness by integrating your other body parts with your musculoskeletal system to ensure a proper and speedy recovery.</p>
+                <p>Our orthopaedic physiotherapy services include post-surgical rehabilitation, pain management, and tailored exercise programs to restore function and reduce pain.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="paediatric-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/pediatric.jpg') }}" alt="Pediatric Physiotherapy" class="right">
+            <div class="text">
+                <h3>Paediatric Physiotherapy</h3>
+                <p>Paediatric physiotherapy focuses on diagnosing, preventing, and treating developmental disorders in infants, children, and young adolescents. Paediatric physiotherapists use exercises and other advanced treatments to help children with cerebral palsy, retarded growth, skeletal disorders, or congenital disabilities regain their strength and improve their motor skills.</p>
+                <p>Our paediatric physiotherapy services include developmental assessments, play-based therapy, and family education to support your child's growth and development.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="neurological-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/neural.jpg') }}" alt="Neurological Physiotherapy" class="left">
+            <div class="text">
+                <h3>Neurological Physiotherapy</h3>
+                <p>Neurological illnesses or injuries affect the peripheral nerves, brain, and spinal cord. This therapy is recommended for people who suffer from stroke, Parkinson’s Disease, Cerebral Palsy, or Multiple Sclerosis. Neurological therapists use different techniques to relieve pain, reduce stress, restore mobility, and prevent other neurological conditions.</p>
+                <p>Our neurological physiotherapy services include balance training, gait analysis, and neurodevelopmental therapy to help you regain independence and improve your quality of life.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cardiovascular-physiotherapy" class="service-section">
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/cardiovascular.jpg') }}" alt="Cardiovascular Physiotherapy" class="right">
+            <div class="text">
+                <h3>Cardiovascular Physiotherapy</h3>
+                <p>Cardiovascular physiotherapists test and prescribe appropriate exercises to keep your heart and lungs in good shape. Conditions treated under this branch of therapy include asthma and increased chest secretion. Cardiovascular physiotherapy helps in managing these conditions and improving overall cardiovascular health.</p>
+                <p>Our cardiovascular physiotherapy services include endurance training, respiratory exercises, and patient education to promote heart health and lung function.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="techniques">
+        <h2>Techniques Used in Physiotherapy Treatments</h2>
+        <p>Physiotherapists use a variety of techniques to treat injuries and deformities. Common methods include massages, exercises, heat therapy, and electrotherapy. Additionally, physiotherapists may use taping, electromagnets, hydrotherapy, joint mobilization, and hot and cold applications to reduce pain, restore joint movement, and improve overall strength.</p>
+    </section>
+    
+    <section id="contact">
+        <h2>Schedule a Physiotherapist Treatment Appointment Today</h2>
+        <p>Like all medical procedures, it is vital to have a certified professional perform your physiotherapy treatments. At Agrawal Physiotherapy Clinic, we have top-of-the-line equipment and top-notch physiotherapists to facilitate your treatment. We also offer mobile physiotherapy. Contact us to book your personalized physiotherapy treatment.</p>
+    </section>
+    
+{% include 'footer.html' %}
+</body>
+</html>

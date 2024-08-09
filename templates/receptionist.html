@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Dashboard</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/receptionist.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('receptionist_page') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Welcome to Receptionist Dashboard, {{user_name}}!</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="flash-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      
+
+        <div>
+            <h3>Add New Patient</h3>
+            <form id="newPatientForm" action="/add_patient" method="POST">
+                <label for="patientName">Patient Name:</label>
+                <input type="text" id="patientName" name="patientName" required><br><br>
+                
+                <label for="patientAge">Age:</label>
+                <input type="number" id="patientAge" name="patientAge" required><br><br>
+                
+                <label for="patientSex">Sex:</label>
+                <select id="patientSex" name="patientSex" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select><br><br>
+                
+                <label for="physiotherapistName">Physiotherapist Name:</label>
+                <input type="text" id="physiotherapistName" name="physiotherapistName" required><br><br>
+                
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required><br><br>
+                
+                <label for="contactNumber">Contact Number:</label>
+                <input type="text" id="contactNumber" name="contactNumber" required><br><br>
+                
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email"><br><br>
+                
+                <input type="submit" value="Add Patient">
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3>Search Patient Records</h3>
+            <form id="searchForm" action="/search_patient" method="POST">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required><br><br>
+                
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required><br><br>
+                
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3>View Patient History</h3>
+            <form id="historyForm" action="/patient_history" method="POST">
+                <label for="patient_name">Patient Name:</label>
+                <input type="text" id="patient_name" name="patient_name"><br><br>
+                <h4 style="text-align: center;">OR</h4>
+                <label for="patient_id">Patient ID:</label>
+                <input type="number" id="patient_id" name="patient_id"><br><br>
+                
+                <input type="submit" value="View History">
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3>List Patients Treated by Physiotherapist</h3>
+            <form id="physiotherapistPatientsForm" action="/physiotherapist_patients" method="POST">
+                <label for="physiotherapistName">Physicotherapist Name:</label>
+                <input type="text" id="physiotherapistName" name="physiotherapistName" required><br><br>
+                
+                <input type="submit" value="List Patients">
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

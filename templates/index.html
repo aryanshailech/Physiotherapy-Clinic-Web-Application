@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioClinic</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/homel.png') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <div class="slideshow-container">
+     <img src="{{ url_for('static', filename='images/home.jpg') }}" style="width:100%" >
+    </div>
+
+
+    </div>
+    <section class="welcome">
+        <div class="container">
+            <h1>Welcome to <span class="clinic-name-highlight">Agrawal Physiotherapy Clinic</span></h1>
+            <p>Your health and wellness are our priority. Our experienced team is dedicated to providing personalized care to help you achieve your health goals. <br> <a href="{{ url_for('about') }}" class="learn-more-link">Learn More</a></p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/sports.jpg') }}" alt="Sports Physiotherapy">
+                    <h3>Sports Physiotherapy</h3>
+                    <p>We help athletes recover faster from injuries and improve performance.</p>
+                </div>
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/geriatric.jpg') }}" alt="Geriatric Physiotherapy">
+                    <h3>Geriatric Physiotherapy</h3>
+                    <p>Special exercises for older adults to manage common conditions like arthritis.</p>
+                </div>
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/orthopedic.jpg') }}" alt="Orthopedic Physiotherapy">
+                    <h3>Orthopedic Physiotherapy</h3>
+                    <p>Treatment for chronic pain and injuries, focusing on recovery and mobility.</p>
+                </div>
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/pediatric.jpg') }}" alt="Pediatric Physiotherapy">
+                    <h3>Pediatric Physiotherapy</h3>
+                    <p>Exercises and treatments for children with developmental disorders.</p>
+                </div>
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/neural.jpg') }}" alt="Neurological Physiotherapy">
+                    <h3>Neurological Physiotherapy</h3>
+                    <p>Treatment for neurological conditions like stroke and Parkinson's Disease.</p>
+                </div>
+                <div class="service-item">
+                    <img src="{{ url_for('static', filename='images/cardiovascular.jpg') }}" alt="Cardiovascular Physiotherapy">
+                    <h3>Cardiovascular Physiotherapy</h3>
+                    <p>Exercises to keep your heart and lungs healthy, treating conditions like asthma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team Section -->
+<section id="team" class="team-section">
+    <div class="container">
+        <h2>Meet Our Team</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/sr_pt_home.avif') }}" alt="Team Member 1">
+                <h3>Dr. Puneet Singh</h3>
+                <p>Senior Physiotherapist</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/pt_home.avif') }}" alt="Team Member 2">
+                <h3>Dr. Vinitha Dravid</h3>
+                <p>Physiotherapist</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/jr_pt_home.jpg') }}" alt="Team Member 3">
+                <h3>Dr. Amit Dev</h3>
+                <p>Junior Physiotherapist</p>
+            </div>
+            <!-- Add more team members as needed -->
+        </div>
+    </div>
+</section>
+
+   <!-- Reviews Section -->
+<section id="reviews" class="reviews-section">
+    <div class="container">
+        <h2>What Our Patients Say</h2>
+        <div class="reviews">
+            <div class="review">
+                <p>"The treatment I received was excellent. Doctor helped me recover quickly!"</p>
+                <h3>- Akash Sen</h3>
+            </div>
+            <div class="review">
+                <p>"Dr. Shailesh Agrawal is very professional and attentive. Highly recommended!"</p>
+                <h3>- Karan Sharma</h3>
+            </div>
+            <div class="review">
+                <p>"I had a wonderful experience with Dr. Vinitha Dravid. She is very caring and skilled."</p>
+                <h3>- Rahul Thadake</h3>
+            </div>
+            <!-- Add more reviews as needed -->
+        </div>
+    </div>
+</section>
+    
+    {% include 'footer.html' %}
+
+</body>
+</html>
