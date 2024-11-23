@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # Physiotherapy-Clinic-Web-Application
-=======
-# Agrawal Physiotherapy Clinic
 
 ## About
 Welcome to the **Agrawal Physiotherapy Clinic** web application! This platform is designed to enhance patient care and streamline clinic operations. With a user-friendly interface, it allows seamless interactions between patients, physiotherapists, and administrative staff, ensuring comprehensive physiotherapy care.
