@@ -33,12 +33,28 @@
 
     <hr>
     <h3>Add Physiotherapist</h3>
-    <form action="/add_physio" method="POST">
+    <form action="/add_physio" method="POST" enctype="multipart/form-data">
         <label for="physio_name">Physiotherapist Name:</label>
         <input type="text" id="physio_name" name="physio_name" required><br><br>
         
         <label for="specialization">Specialization:</label>
-        <input type="text" id="specialization" name="specialization"><br><br>
+<select id="specialization" name="specialization">
+    <option value="">--Select Specialization--</option>
+    <option value="orthopedic">Orthopedic Physiotherapy</option>
+    <option value="neuro">Neurological Physiotherapy</option>
+    <option value="cardio">Cardiovascular Physiotherapy</option>
+    <option value="pediatric">Pediatric Physiotherapy</option>
+    <option value="geriatric">Geriatric Physiotherapy</option>
+    <option value="sports">Sports Physiotherapy</option>
+    <option value="women_health">Women's Health Physiotherapy</option>
+    <option value="manual_therapy">Manual Therapy</option>
+    <option value="rehabilitation">Rehabilitation Physiotherapy</option>
+    <option value="pelvic_health">Pelvic Health Physiotherapy</option>
+    <option value="respiratory">Respiratory Physiotherapy</option>
+    <option value="musculoskeletal">Musculoskeletal Physiotherapy</option>
+    <option value="pain_management">Pain Management Physiotherapy</option>
+    <!-- Add more specializations as needed -->
+</select><br><br>
         
         <label for="aadhar_number">Aadhar Number:</label>
         <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
@@ -54,6 +70,9 @@
         
         <label for="password">Password (optional):</label>
         <input type="password" id="password" name="password"><br><br>
+
+        <label for="file">Upload Image:</label>
+        <input type="file" id="file" name="file" accept="image/*"><br><br>
         
         <input type="submit" value="Add Physiotherapist">
     </form>
@@ -67,27 +86,32 @@
     </form>
     <hr>
     <h3>Add Receptionist</h3>
-    <form action="/add_receptionist" method="POST">
-        <label for="receptionist_name">Receptionist Name:</label>
-        <input type="text" id="receptionist_name" name="receptionist_name" required><br><br>
-        
-        <label for="contact_number">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number"><br><br>
-        
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address"><br><br>
-        
-        <label for="aadhar_number">Aadhar Number:</label>
-        <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        
-        <label for="password">Password (optional):</label>
-        <input type="password" id="password" name="password"><br><br>
-        
-        <input type="submit" value="Add Receptionist">
-    </form>
+<form action="/add_receptionist" method="POST" enctype="multipart/form-data">
+    <label for="receptionist_name">Receptionist Name:</label>
+    <input type="text" id="receptionist_name" name="receptionist_name" required><br><br>
+    
+    <label for="contact_number">Contact Number:</label>
+    <input type="text" id="contact_number" name="contact_number"><br><br>
+    
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address"><br><br>
+    
+    <label for="aadhar_number">Aadhar Number:</label>
+    <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    
+    <label for="password">Password (optional):</label>
+    <input type="password" id="password" name="password"><br><br>
+    
+    <label for="file">Upload Image:</label>
+    <input type="file" id="file" name="file" accept="image/*"><br><br>
+    
+    <input type="submit" value="Add Receptionist">
+</form>
+<hr>
+
     <hr>
     <h3>Remove Receptionist</h3>
     <form action="/remove_receptionist" method="POST">
@@ -95,6 +119,40 @@
         <input type="number" id="receptionist_id" name="receptionist_id" required><br><br>
         
         <input type="submit" value="Remove Receptionist">
+    </form>
+    <hr>
+    <h3>Add Admin</h3>
+    <form action="/add_admin" method="POST">
+        <label for="admin_name">Admin Name:</label>
+        <input type="text" id="admin_name" name="admin_name" required><br><br>
+        
+        <label for="aadhar_number">Aadhar Number:</label>
+        <input type="text" id="aadhar_number" name="aadhar_number"><br><br>
+        
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number"><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br><br>
+        
+        <label for="password">Password (optional):</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="file">Upload Image:</label>
+        <input type="file" id="file" name="file" accept="image/*"><br><br>
+        
+        <input type="submit" value="Add Admin">
+    </form>
+    <hr>
+    <h3>Remove Admin</h3>
+    <form action="/remove_admin" method="POST">
+        <label for="admin_id">Admin ID:</label>
+        <input type="number" id="admin_id" name="admin_id" required><br><br>
+        
+        <input type="submit" value="Remove Admin">
     </form>
     <hr>
     <a href="/view_physios">View All Physiotherapists</a><br><br>

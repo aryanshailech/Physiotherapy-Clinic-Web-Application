@@ -3,6 +3,8 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from flask_mail import Mail, Message
 import os, time, re, random, string
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -27,6 +29,16 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_DEFAULT_SENDER'] = 'kanhayeoda@gmail.com'
 
 mail = Mail(app)
+
+
+# Configuration for file uploads
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')  # Change this to your upload folder
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit the size of uploads to 16 MB
+
+# Function to check allowed file extensions
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+
 
 def send_email(recipient, subject, body):
     msg = Message(subject=subject, recipients=[recipient], body=body)
@@ -76,10 +88,10 @@ def login():
                     SELECT a.admin_id, a.admin_name, al.password 
                     FROM Admin_Login al
                     JOIN Admin a ON al.admin_id = a.admin_id
-                    WHERE al.admin_id = %s AND al.password = %s
-                ''', (username, password))
+                    WHERE al.admin_id = %s
+                ''', (username,))
                 account = cursor.fetchone()
-                if account:
+                if account and check_password_hash(account['password'], password):
                     session['loggedin'] = True
                     session['id'] = account['admin_id']
                     session['role'] = 'admin'
@@ -93,10 +105,10 @@ def login():
                     SELECT r.receptionist_id, r.receptionist_name, rl.password 
                     FROM Receptionist_Login rl
                     JOIN Receptionist r ON rl.receptionist_id = r.receptionist_id
-                    WHERE rl.receptionist_id = %s AND rl.password = %s
-                ''', (username, password))
+                    WHERE rl.receptionist_id = %s
+                ''', (username,))
                 account = cursor.fetchone()
-                if account:
+                if account and check_password_hash(account['password'], password):
                     session['loggedin'] = True
                     session['id'] = account['receptionist_id']
                     session['role'] = 'receptionist'
@@ -104,16 +116,16 @@ def login():
                     return redirect(url_for('receptionist_page'))
                 else:
                     flash('Incorrect username/password!', 'error')
-                
+
             elif len(username) == 4:  # Physiotherapist ID is 4 digits
                 cursor.execute('''
                     SELECT p.physiotherapist_id, p.physiotherapist_name, pl.password 
                     FROM Physiotherapist_Login pl
                     JOIN Physiotherapist p ON pl.physiotherapist_id = p.physiotherapist_id
-                    WHERE pl.physiotherapist_id = %s AND pl.password = %s
-                ''', (username, password))
+                    WHERE pl.physiotherapist_id = %s
+                ''', (username,))
                 account = cursor.fetchone()
-                if account:
+                if account and check_password_hash(account['password'], password):
                     session['loggedin'] = True
                     session['id'] = account['physiotherapist_id']
                     session['role'] = 'physiotherapist'
@@ -206,14 +218,15 @@ def reset_password(user_id, user_type):
         reverify_password = request.form['reverify_password']
         if new_password == reverify_password:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            
+            hashed_password = generate_password_hash(new_password)
+
             # Update password based on user type
             if user_type == 'receptionist':
-                cursor.execute('UPDATE Receptionist_Login SET password = %s WHERE receptionist_id = %s', (new_password, user_id))
+                cursor.execute('UPDATE Receptionist_Login SET password = %s WHERE receptionist_id = %s', (hashed_password, user_id))
             elif user_type == 'physiotherapist':
-                cursor.execute('UPDATE Physiotherapist_Login SET password = %s WHERE physiotherapist_id = %s', (new_password, user_id))
+                cursor.execute('UPDATE Physiotherapist_Login SET password = %s WHERE physiotherapist_id = %s', (hashed_password, user_id))
             elif user_type == 'admin':
-                cursor.execute('UPDATE Admin_Login SET password = %s WHERE admin_id = %s', (new_password, user_id))
+                cursor.execute('UPDATE Admin_Login SET password = %s WHERE admin_id = %s', (hashed_password, user_id))
             
             mysql.connection.commit()
             flash('Password updated successfully!', 'success')
@@ -232,27 +245,35 @@ def profile():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         
         try:
+            # Fetch user details based on role
+            user = None
+            name = None
+            user_type = None
+            
             if role == 'receptionist':
                 cursor.execute('SELECT * FROM Receptionist WHERE receptionist_id = %s', (user_id,))
                 user = cursor.fetchone()
-                if user:
-                    name = user['receptionist_name']
-                    user_type='receptionist'
+                user_type = 'receptionist'
+                name = user['receptionist_name'] if user else None
 
             elif role == 'physiotherapist':
                 cursor.execute('SELECT * FROM Physiotherapist WHERE physiotherapist_id = %s', (user_id,))
                 user = cursor.fetchone()
-                if user:
-                    name = user['physiotherapist_name']
-                    user_type='physiotherapist'
+                user_type = 'physiotherapist'
+                name = user['physiotherapist_name'] if user else None
 
             elif role == 'admin':
                 cursor.execute('SELECT * FROM Admin WHERE admin_id = %s', (user_id,))
                 user = cursor.fetchone()
-                if user:
-                    name = user['admin_name']
-                    user_type='admin'
-            
+                user_type = 'admin'
+                name = user['admin_name'] if user else None
+
+            # Ensure a default image is set if 'profile_image' is missing or empty
+            # Ensure a default image is set if 'profile_image' is missing, empty, or None
+            if user is not None:
+                user['profile_image'] = user.get('profile_image') or 'default.jpg'
+
+            # Pass user information to the profile template
             if user:
                 return render_template('profile.html', user=user, id=user_id, name=name, user_type=user_type)
             else:
@@ -260,10 +281,90 @@ def profile():
                 return redirect(url_for('loginpage'))
         
         except MySQLdb.Error as e:
-            flash(f'Error: {str(e)}', 'error')
+            flash(f'Error fetching user details: {str(e)}', 'error')
             return redirect(url_for('loginpage'))
+    
     flash('You need to log in to perform this action.', 'warning')    
     return redirect(url_for('loginpage'))
+
+@app.route('/update_details/<int:user_id>', methods=['GET', 'POST'])
+def update_details(user_id):
+    if 'loggedin' in session:
+        role = session['role']  # Get the role from the session
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        if request.method == 'POST':
+            # Handle the form submission for updating user details
+            contact_number = request.form['contact_number']
+            address = request.form['address']
+            email = request.form['email']
+            file = request.files.get('file')
+
+            try:
+                # Update user details based on role
+                if role == 'receptionist':
+                    cursor.execute('UPDATE Receptionist SET contact_number=%s, address=%s, email=%s WHERE receptionist_id=%s',
+                                   (contact_number, address, email, user_id))
+
+                elif role == 'physiotherapist':
+                    cursor.execute('UPDATE Physiotherapist SET contact_number=%s, address=%s, email=%s WHERE physiotherapist_id=%s',
+                                   (contact_number, address, email, user_id))
+
+                elif role == 'admin':
+                    cursor.execute('UPDATE Admin SET contact_number=%s, address=%s, email=%s WHERE admin_id=%s',
+                                   (contact_number, address, email, user_id))
+
+                # If a new file was uploaded, handle it
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
+
+                    # Update the profile image path in the corresponding table
+                    if role == 'receptionist':
+                        cursor.execute('UPDATE Receptionist SET profile_image=%s WHERE receptionist_id=%s', (filename, user_id))
+
+                    elif role == 'physiotherapist':
+                        cursor.execute('UPDATE Physiotherapist SET profile_image=%s WHERE physiotherapist_id=%s', (filename, user_id))
+
+                    elif role == 'admin':
+                        cursor.execute('UPDATE Admin SET profile_image=%s WHERE admin_id=%s', (filename, user_id))
+
+                mysql.connection.commit()
+                flash('Profile updated successfully!', 'success')
+
+            except MySQLdb.Error as e:
+                mysql.connection.rollback()
+                flash(f'Error updating profile: {e}', 'error')
+            finally:
+                cursor.close()
+
+            return redirect(url_for('profile'))  # Redirect to the profile page
+
+        # If the request method is GET, fetch the user details for the edit form
+        try:
+            if role == 'receptionist':
+                cursor.execute('SELECT * FROM Receptionist WHERE receptionist_id = %s', (user_id,))
+            elif role == 'physiotherapist':
+                cursor.execute('SELECT * FROM Physiotherapist WHERE physiotherapist_id = %s', (user_id,))
+            elif role == 'admin':
+                cursor.execute('SELECT * FROM Admin WHERE admin_id = %s', (user_id,))
+
+            user = cursor.fetchone()
+            if user:
+                return render_template('update_details.html', user=user)  # Render edit form
+            else:
+                flash('User not found.', 'error')
+                return redirect(url_for('profile'))  # Redirect to profile if user not found
+        except MySQLdb.Error as e:
+            flash(f'Error fetching user details: {e}', 'error')
+            return redirect(url_for('profile'))
+        finally:
+            cursor.close()
+
+    flash('You need to log in to perform this action.', 'warning')
+    return redirect(url_for('loginpage'))
+
 
 
 @app.route('/change_password', methods=['POST'])
@@ -292,14 +393,17 @@ def change_password():
             
             account = cursor.fetchone()
             
-            if account and account['password'] == current_password:
-                # Update password
+            # Verify current password using check_password_hash
+            if account and check_password_hash(account['password'], current_password):
+                # Update password using generate_password_hash
+                hashed_new_password = generate_password_hash(new_password)
+
                 if role == 'receptionist':
-                    cursor.execute('UPDATE Receptionist_Login SET password = %s WHERE receptionist_id = %s', (new_password, user_id))
+                    cursor.execute('UPDATE Receptionist_Login SET password = %s WHERE receptionist_id = %s', (hashed_new_password, user_id))
                 elif role == 'physiotherapist':
-                    cursor.execute('UPDATE Physiotherapist_Login SET password = %s WHERE physiotherapist_id = %s', (new_password, user_id))
+                    cursor.execute('UPDATE Physiotherapist_Login SET password = %s WHERE physiotherapist_id = %s', (hashed_new_password, user_id))
                 elif role == 'admin':
-                    cursor.execute('UPDATE Admin_Login SET password = %s WHERE admin_id = %s', (new_password, user_id))
+                    cursor.execute('UPDATE Admin_Login SET password = %s WHERE admin_id = %s', (hashed_new_password, user_id))
                 
                 mysql.connection.commit()
                 flash('Password changed successfully!', 'success')
@@ -350,14 +454,36 @@ def add_physio():
         address = request.form['address']
         password = request.form.get('password', None) or str(session['id'])  # Default password is admin id
         
+        # Hash the password before storing
+        hashed_password = generate_password_hash(password)
+
+        # Handle file upload
+        file = request.files.get('file')
+
+        # Validate and save the uploaded file
+        filename = None
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)  # Get the secure filename
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)  # Full path for saving
+            file.save(file_path)  # Save the file to the path
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO Physiotherapist (physiotherapist_name, specialization, aadhar_number, contact_number, email, address) VALUES (%s, %s, %s, %s, %s, %s)',
-                       (physio_name, specialization, aadhar_number, contact_number, email, address))
-        physiotherapist_id = cursor.lastrowid
-        cursor.execute('INSERT INTO Physiotherapist_Login (physiotherapist_id, password) VALUES (%s, %s)', (physiotherapist_id, password))
-        mysql.connection.commit()
-        flash('Physiotherapist added successfully!', 'success')
+        try:
+            # Use only the filename for the database
+            cursor.execute('INSERT INTO Physiotherapist (physiotherapist_name, specialization, aadhar_number, contact_number, email, address, profile_image) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                           (physio_name, specialization, aadhar_number, contact_number, email, address, filename))
+            physiotherapist_id = cursor.lastrowid
+            cursor.execute('INSERT INTO Physiotherapist_Login (physiotherapist_id, password) VALUES (%s, %s)', (physiotherapist_id, hashed_password))
+            mysql.connection.commit()
+            flash('Physiotherapist added successfully!', 'success')
+        except MySQLdb.Error as e:
+            mysql.connection.rollback()
+            flash(f'Error adding physiotherapist: {e}', 'error')
+        finally:
+            cursor.close()
+        
         return redirect(url_for('admin_page'))
+
     flash('You need to log in as an admin to perform this action.', 'warning')
     return redirect(url_for('loginpage'))
 
@@ -368,30 +494,20 @@ def remove_physio():
         
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            
-            # Delete from Physicians_Login table first
+            # Delete from Physiotherapist_Login table first
             cursor.execute('DELETE FROM Physiotherapist_Login WHERE physiotherapist_id = %s', (physiotherapist_id,))
-            
             # Then delete from Physiotherapist table
             cursor.execute('DELETE FROM Physiotherapist WHERE physiotherapist_id = %s', (physiotherapist_id,))
-            
-            # Commit the changes to the database
             mysql.connection.commit()
-            
-            # Provide feedback to the user
             flash('Physiotherapist removed successfully!', 'success')
         except MySQLdb.Error as e:
-            # Rollback in case of any error
             mysql.connection.rollback()
             flash(f'Error removing physiotherapist: {e}', 'error')
         finally:
-            # Close the cursor
             cursor.close()
         
-        # Redirect to the admin page
         return redirect(url_for('admin_page'))
     
-    # If not logged in or not an admin, redirect to the login page
     flash('You need to log in as an admin to perform this action.', 'warning')
     return redirect(url_for('loginpage'))
 
@@ -404,19 +520,38 @@ def add_receptionist():
         aadhar_number = request.form['aadhar_number']
         email = request.form['email']
         password = request.form.get('password', None) or str(session['id'])  # Default password is admin id
-        
+
+        # Hash the password before storing
+        hashed_password = generate_password_hash(password)
+
+        # Handle file upload
+        file = request.files.get('file')  # Change 'file' to the name of your file input field in the form
+
+        # Validate and save the uploaded file
+        file_path = None
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO Receptionist (receptionist_name, contact_number, address, aadhar_number, email) VALUES (%s, %s, %s, %s, %s)',
-                       (receptionist_name, contact_number, address, aadhar_number, email))
-        receptionist_id = cursor.lastrowid
-        cursor.execute('INSERT INTO Receptionist_Login (receptionist_id, password) VALUES (%s, %s)', (receptionist_id, password))
-        mysql.connection.commit()
-        flash('Receptionist added successfully!', 'success')
+        try:
+            cursor.execute('INSERT INTO Receptionist (receptionist_name, contact_number, address, aadhar_number, email, image_path) VALUES (%s, %s, %s, %s, %s, %s)',
+                           (receptionist_name, contact_number, address, aadhar_number, email, file_path))
+            receptionist_id = cursor.lastrowid
+            cursor.execute('INSERT INTO Receptionist_Login (receptionist_id, password) VALUES (%s, %s)', (receptionist_id, hashed_password))
+            mysql.connection.commit()
+            flash('Receptionist added successfully!', 'success')
+        except MySQLdb.Error as e:
+            mysql.connection.rollback()
+            flash(f'Error adding receptionist: {e}', 'error')
+        finally:
+            cursor.close()
+        
         return redirect(url_for('admin_page'))
+
     flash('You need to log in as an admin to perform this action.', 'warning')
     return redirect(url_for('loginpage'))
-
-
 @app.route('/remove_receptionist', methods=['POST'])
 def remove_receptionist():
     if 'loggedin' in session and session['role'] == 'admin':
@@ -424,33 +559,88 @@ def remove_receptionist():
         
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            
             # Delete the receptionist from the Receptionist_Login table first
             cursor.execute('DELETE FROM Receptionist_Login WHERE receptionist_id = %s', (receptionist_id,))
-            
             # Then delete the receptionist from the Receptionist table
             cursor.execute('DELETE FROM Receptionist WHERE receptionist_id = %s', (receptionist_id,))
-            
-            # Commit the changes to the database
             mysql.connection.commit()
-            
-            # Provide feedback to the user
             flash('Receptionist removed successfully!', 'success')
         except MySQLdb.Error as e:
-            # Rollback in case of any error
             mysql.connection.rollback()
             flash(f'Error removing receptionist: {e}', 'error')
         finally:
-            # Close the cursor
             cursor.close()
         
-        # Redirect to the admin page
         return redirect(url_for('admin_page'))
     
-    # If not logged in or not an admin, redirect to the login page
     flash('You need to log in as an admin to perform this action.', 'warning')
     return redirect(url_for('loginpage'))
 
+@app.route('/add_admin', methods=['POST'])
+def add_admin():
+    if 'loggedin' in session and session['role'] == 'admin':
+        admin_name = request.form['admin_name']
+        aadhar_number = request.form['aadhar_number']
+        contact_number = request.form['contact_number']
+        email = request.form['email']
+        address = request.form['address']
+        password = request.form.get('password', None) or str(session['id'])  # Default password is admin id
+        
+        # Hash the password before storing
+        hashed_password = generate_password_hash(password)
+
+        # Handle image file upload
+        file = request.files.get('file')  # 'file' corresponds to the name of the input field in the form
+
+        # Validate and save the uploaded file
+        file_path = None
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        try:
+            cursor.execute('INSERT INTO Admin (admin_name, aadhar_number, contact_number, email, address, image_path) VALUES (%s, %s, %s, %s, %s, %s)',
+                           (admin_name, aadhar_number, contact_number, email, address, file_path))
+            admin_id = cursor.lastrowid
+            cursor.execute('INSERT INTO Admin_Login (admin_id, password) VALUES (%s, %s)', (admin_id, hashed_password))
+            mysql.connection.commit()
+            flash('Admin added successfully!', 'success')
+        except MySQLdb.Error as e:
+            mysql.connection.rollback()
+            flash(f'Error adding admin: {e}', 'error')
+        finally:
+            cursor.close()
+        
+        return redirect(url_for('admin_page'))
+
+    flash('You need to log in as an admin to perform this action.', 'warning')
+    return redirect(url_for('loginpage'))
+
+@app.route('/remove_admin', methods=['POST'])
+def remove_admin():
+    if 'loggedin' in session and session['role'] == 'admin':
+        admin_id = request.form['admin_id']
+        
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            # Delete from Admin_Login table first
+            cursor.execute('DELETE FROM Admin_Login WHERE admin_id = %s', (admin_id,))
+            # Then delete from Admin table
+            cursor.execute('DELETE FROM Admin WHERE admin_id = %s', (admin_id,))
+            mysql.connection.commit()
+            flash('Admin removed successfully!', 'success')
+        except MySQLdb.Error as e:
+            mysql.connection.rollback()
+            flash(f'Error removing admin: {e}', 'error')
+        finally:
+            cursor.close()
+        
+        return redirect(url_for('admin_page'))
+    
+    flash('You need to log in as an admin to perform this action.', 'warning')
+    return redirect(url_for('loginpage'))
 @app.route('/view_physios')
 def view_physios():
     if 'loggedin' in session and session['role'] == 'admin':
@@ -520,26 +710,40 @@ def search_patient():
         return render_template('search_results.html', patients=patients)
     flash('You need to log in to perform this action.', 'warning')
     return redirect(url_for('login'))
-
 @app.route('/patient_history', methods=['POST'])
 def patient_history():
     if 'loggedin' in session and session['role'] in ['receptionist', 'physiotherapist', 'admin']:
         patient_name = request.form.get('patient_name', '').strip()
         patient_id = request.form.get('patient_id', '').strip()
+        contact_number = request.form.get('mobile_no', '').strip()  # Updated to match the column name
+        email = request.form.get('email', '').strip()
 
-        # Ensure only one field is provided
-        if (patient_name and patient_id) or (not patient_name and not patient_id):
-            flash('Please provide either a patient name or ID, but not both.', 'error')
-            return redirect(url_for('receptionist_page') if session['role'] == 'receptionist' else 'physiotherapist_page')
+        # Ensure at least one field is provided
+        if not any([patient_name, patient_id, contact_number, email]):
+            flash('Please provide at least one search criterion (name, ID, contact number, or email).', 'error')
+            return redirect(url_for('receptionist_page') if session['role'] == 'receptionist' else url_for('physiotherapist_page'))
 
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            query = 'SELECT * FROM Patient WHERE 1'
+            query_params = []
+
+            # Build query dynamically based on provided inputs
             if patient_name:
-                cursor.execute('SELECT * FROM Patient WHERE patient_name = %s', (patient_name,))
-                patients = cursor.fetchall()
-            elif patient_id:
-                cursor.execute('SELECT * FROM Patient WHERE patient_id = %s', (patient_id,))
-                patients = cursor.fetchall()
+                query += ' AND patient_name = %s'
+                query_params.append(patient_name)
+            if patient_id:
+                query += ' AND patient_id = %s'
+                query_params.append(patient_id)
+            if contact_number:
+                query += ' AND contact_number = %s'  # Updated column name
+                query_params.append(contact_number)
+            if email:
+                query += ' AND email = %s'
+                query_params.append(email)
+
+            cursor.execute(query, tuple(query_params))
+            patients = cursor.fetchall()
 
             if patients:
                 patient_treatments = {}
@@ -558,9 +762,11 @@ def patient_history():
         except Exception as e:
             flash(f'An unexpected error occurred: {str(e)}', 'error')
         
-        return redirect(url_for('receptionist_page') if session['role'] == 'receptionist' else 'physiotherapist_page')
+        return redirect(url_for('receptionist_page') if session['role'] == 'receptionist' else url_for('physiotherapist_page'))
+
     flash('You need to log in to perform this action.', 'warning')
     return redirect(url_for('login'))
+
 
 
 @app.route('/physiotherapist_patients', methods=['POST'])

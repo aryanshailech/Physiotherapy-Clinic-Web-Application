@@ -12,18 +12,23 @@
         <h2>My Profile</h2>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul class="flashes">
-      {% for category, message in messages %}
-        <li class="flash-message flash-{{ category }}">{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="flash-message flash-{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 
-        <!-- User Details -->
+        <!-- User Details with Profile Image -->
         <section>
             <h3>User Details</h3>
+            <!-- Display Profile Image -->
+            <div class="profile-image">
+                <img src="{{ url_for('static', filename='uploads/' + user['profile_image']) }}" alt="{{ user['name'] }}'s Profile Picture">
+            </div>
+            
             <p><strong>ID:</strong> {{ id }}</p>
             <p><strong>Role:</strong> {{ user_type }}</p>
             <p><strong>Name:</strong> {{ name }}</p>
@@ -32,8 +37,11 @@
             <p><strong>Email:</strong> {{ user.email }}</p>
         </section>
 
-        <!-- Change Password -->
-        <a href="{{ url_for('reset_password', user_id=id, user_type=user_type)}}">Reset Password</a>
+        <!-- Links for Reset Password and Edit Details -->
+        <section>
+            <a class="reset-password-btn" href="{{ url_for('reset_password', user_id=id, user_type=user_type) }}">Reset Password</a>
+            <a href="{{ url_for('update_details', user_id=id) }}">Edit Details</a>
+        </section>
     </div>
 </body>
 </html>

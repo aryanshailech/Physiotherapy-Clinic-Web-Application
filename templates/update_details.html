@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Link your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Details</h2>
+        <form action="{{ url_for('update_details', user_id=user.id) }}" method="post" enctype="multipart/form-data">
+            <label for="contact_number">Contact Number:</label>
+            <input type="text" name="contact_number" required value="{{ user.contact_number }}"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" name="address" required value="{{ user.address }}"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required value="{{ user.email }}"><br>
+
+            <label for="file">Upload Profile Image:</label>
+            <input type="file" name="file" accept="image/*"><br>
+
+            <button type="submit">Update Profile</button>
+        </form>
+        <a href="{{ url_for('profile') }}">Cancel</a> <!-- Link to return to profile -->
+    </div>
+</body>
+</html>

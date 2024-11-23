@@ -101,3 +101,7 @@ h3 {
 p {
     margin: 5px 0;
 }
+nav ul li a.active {
+    color: #007bff; /* Example: Change to blue */
+    font-weight: bold; /* Optional: Make it bold */
+}

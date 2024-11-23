@@ -18,14 +18,14 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    <li><a href="{{ url_for('services') }}">Services</a></li>
-                    <li><a href="{{ url_for('team') }}">Team</a></li>
-                    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
-                    
+                    <li><a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="{% if request.endpoint == 'about' %}active{% endif %}">About Us</a></li>
+                    <li><a href="{{ url_for('services') }}" class="{% if request.endpoint == 'services' %}active{% endif %}">Services</a></li>
+                    <li><a href="{{ url_for('team') }}" class="{% if request.endpoint == 'team' %}active{% endif %}">Team</a></li>
+                    <li><a href="{{ url_for('reviews') }}" class="{% if request.endpoint == 'reviews' %}active{% endif %}">Reviews</a></li>
                 </ul>
             </nav>
+            
             <div class="contact-info">
                 <a href="tel:(+91)9422625147">call us</a>
                   <form action="{{ url_for('loginpage') }}">
