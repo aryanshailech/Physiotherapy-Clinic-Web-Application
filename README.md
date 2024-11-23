@@ -85,10 +85,4 @@ Welcome to the **Agrawal Physiotherapy Clinic** web application! This platform i
 ### Patient History
 
 ![patient history](https://github.com/user-attachments/assets/74ba529d-caa7-482a-b82b-3a4db844b413)
-## Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/agrawal-physiotherapy-clinic.git
-
->>>>>>> 5724948 (Your commit message here)
