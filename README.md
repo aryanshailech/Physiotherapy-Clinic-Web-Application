@@ -140,6 +140,8 @@ The Agrawal Physiotherapy Clinic web application is designed to provide a compre
 ### PasswordResetRequests
 - Fields: `request_id`, `user_type`, `user_id`, `otp`
 
+### Database ER Diagram
+![database img](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/db_img.png).
 ---
 
 ## Future Enhancements
