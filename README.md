@@ -40,46 +40,46 @@ Welcome to the **Agrawal Physiotherapy Clinic** web application! This platform i
 
   ## Screenshot of projects:-
 ### Home page
-![Home-Page](https://github.com/user-attachments/assets/210f4209-c165-4246-afbe-828c05b38f38)
+![Home-Page](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/home%20page.png)
 
 ### About Us page
-![about us](https://github.com/user-attachments/assets/94358531-4bc0-4ff6-9eab-afb03eef3f42)
+![about us](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/about%20us.png)
 
 ### Treatments page
 
-![treatments](https://github.com/user-attachments/assets/82a33378-63bd-4748-8157-c34e61d4fa4b)
+![treatments](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/treatments.png)
 
 ### Team 
-![team](https://github.com/user-attachments/assets/51ffed8c-610f-439b-ad2e-915dc286cde5)
+![team](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/team.png)
 
 
 ### Receptionist Dashboard
-![receptionist dashboard](https://github.com/user-attachments/assets/eecc95da-9c92-4de5-85a1-76b721dfec38)
+![receptionist dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20dashboard.png)
 
 
 ### Receptionist (Search Patient)
-![receptionist search patient](https://github.com/user-attachments/assets/4a431a4a-24e2-4b12-a9c8-59cef7a0947f)
+![receptionist search patient](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20search%20patient.png)
 
 ### Profile Section
-![profile](https://github.com/user-attachments/assets/35c52ce2-114e-4b50-8f41-383e19dd299c)
+![profile](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/profile.png)
 
 
 ### Login Page
-![login](https://github.com/user-attachments/assets/1f858669-5b1f-4fd8-b64f-fdc66e7a2128)
+![login](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/login.png)
 
 
 ### Physiotherapist Page
-![physiotherapist dashboard](https://github.com/user-attachments/assets/686d964d-70c1-4880-b0e0-07b66f4dade9)
+![physiotherapist dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/physiotherapist%20dashboard.png)
 
 ### Admin Dashboard
-![admin dashboard](https://github.com/user-attachments/assets/05a9ffee-1ef5-4cbc-be35-2661824cd7de)
+![admin dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/admin%20dashboard.png)
 
 
 ### Forgot Password
 
-![forgot password](https://github.com/user-attachments/assets/6af6863c-f791-452f-9a06-896b646c762b)
+![forgot password](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/forgot%20password.png)
 
 ### Patient History
 
-![patient history](https://github.com/user-attachments/assets/74ba529d-caa7-482a-b82b-3a4db844b413)
+![patient history](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/patient%20history.png)
 
