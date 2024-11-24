@@ -1,85 +1,167 @@
-# Physiotherapy-Clinic-Web-Application
+# Agrawal Physiotherapy Clinic Web Application
 
 ## About
-Welcome to the **Agrawal Physiotherapy Clinic** web application! This platform is designed to enhance patient care and streamline clinic operations. With a user-friendly interface, it allows seamless interactions between patients, physiotherapists, and administrative staff, ensuring comprehensive physiotherapy care.
+The Agrawal Physiotherapy Clinic web application is designed to provide a comprehensive solution for managing clinic operations, improving administrative efficiency, and enhancing patient care. It bridges the gap between patients, physiotherapists, and administrative staff through role-based access, seamless interaction, and secure management of medical data.
+
+---
 
 ## Features
 
 ### User Authentication
-- Secure login for different roles: **Administrators**, **Physiotherapists**, and **Receptionists**.
+- Role-based login:
+  - **Admin**: Access the admin panel for role and clinic management.
+  - **Physiotherapist**: View and manage assigned patients and their treatments.
+  - **Receptionist**: Handle patient registration, appointments, and records.
+- Secure password storage using hashing.
+- Forgot password functionality with email-based OTP verification.
+- Session management with role-based permissions.
+
+![Login Page](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/login.png)
+
+![Forgot Password](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/forgot%20password.png)
+
+---
 
 ### Patient Management
-- **Registration**: Easily register new patients with detailed information.
-- **Patient History**: Access and manage patient treatment history for better tracking.
+- Register new patients with complete details such as name, age, gender, contact, and assigned physiotherapist.
+- Search for patients by name, ID, contact number, or email.
+- View patient treatment history and assigned physiotherapist details.
+- Advanced date-range search for viewing patients added or treated within a specific period.
+
+![Receptionist Dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20dashboard.png)
+
+![Receptionist Search Patient](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20search%20patient.png)
+
+![Patient History](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/patient%20history.png)
+
+---
 
 ### Physiotherapist Management
-- **Add/Edit Physiotherapists**: Manage physiotherapist profiles, specialties, and contact information.
-- **View Patient Assignments**: Access assigned patients and treatment plans.
+- Add, edit, or remove physiotherapist profiles, including specialization and contact details.
+- View assigned patients and monitor treatment updates.
+- Manage physiotherapist-specific specialization data.
+
+![Physiotherapist Dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/physiotherapist%20dashboard.png)
+
+---
 
 ### Treatment Management
-- **Record Treatments**: Document diagnosis, treatment plans, and progress notes.
-- **View Treatment History**: Access treatment histories for informed decision-making.
+- Record and update diagnoses, treatment plans, and progress notes.
+- Access treatment histories for patients.
+- Role-specific permissions to ensure data integrity.
+
+---
 
 ### Admin Panel
-- **Role Management**: Manage user roles and permissions for secure access to sensitive information.
-- **Data Analytics**: Gain insights into clinic operations with various metrics.
+- Add, edit, or delete roles such as administrators, physiotherapists, and receptionists.
+- View and manage profiles for physiotherapists and receptionists.
+- Generate analytics to track clinic performance and operational data.
+
+![Admin Dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/admin%20dashboard.png)
+
+---
+
+### Receptionist Dashboard
+- Schedule and manage patient appointments.
+- Search and retrieve patient records quickly.
+- Register new patients with detailed information.
+
+---
+
+### Profile Management
+- View and edit user profiles with contact details, address, and profile pictures.
+- Upload profile images securely.
+- Change passwords with secure validation checks.
+
+![Profile Section](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/profile.png)
+
+---
+
+### Notifications and Email
+- Email-based notifications for OTP verification during password recovery.
+- Alerts for critical updates such as new patient assignments or treatment changes.
+
+---
+
+### File Management
+- Secure upload and storage of user and patient images.
+- File size limit set to 16 MB to prevent large uploads.
+
+---
+
+## Security Features
+- Role-based access control to restrict actions based on user roles.
+- Password encryption using hashing.
+- Session security to track user login status with strict validation checks.
+- Email-based OTP for secure password recovery.
+- Input sanitization to prevent SQL injection and other vulnerabilities.
+
+---
 
 ## Technologies Used
 
-### Front-End Development
-- **HTML**
-- **CSS**
-
 ### Back-End Development
-- **Python**
-- **Flask Framework**
-- **MySQL Database**
+- Python
+- Flask
+- MySQL
 
-### Development Tools
-- **Visual Studio Code**
+### Front-End Development
+- HTML
+- CSS
 
-  ## Screenshot of projects:-
-### Home page
-![Home-Page](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/home%20page.png)
+### Libraries and Tools
+- Flask-Mail for sending OTPs and email notifications.
+- Flask-MySQLdb for database interactions.
+- Werkzeug for secure password hashing and file handling.
 
-### About Us page
-![about us](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/about%20us.png)
+---
 
-### Treatments page
+## Database Schema
 
-![treatments](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/treatments.png)
+### Admin
+- Fields: `admin_id`, `admin_name`, `email`, `contact_number`, `profile_image`, `address`
+- Relations: `Admin_Login`
 
-### Team 
-![team](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/team.png)
+### Physiotherapist
+- Fields: `physiotherapist_id`, `name`, `specialization`, `contact_number`, `profile_image`, `email`, `address`
+- Relations: `Physiotherapist_Login`, `Patient`, `Treatment`
 
+### Receptionist
+- Fields: `receptionist_id`, `name`, `contact_number`, `email`, `profile_image`, `address`
+- Relations: `Receptionist_Login`
 
-### Receptionist Dashboard
-![receptionist dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20dashboard.png)
+### Patient
+- Fields: `patient_id`, `name`, `age`, `sex`, `assigned_physio`, `contact_number`, `email`, `address`
+- Relations: `Treatment`
 
+### Treatment
+- Fields: `treatment_id`, `physiotherapist_id`, `patient_id`, `diagnosis`, `treatment_plan`, `created_at`
 
-### Receptionist (Search Patient)
-![receptionist search patient](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/receptionist%20search%20patient.png)
+### PasswordResetRequests
+- Fields: `request_id`, `user_type`, `user_id`, `otp`
 
-### Profile Section
-![profile](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/profile.png)
+---
 
+## Future Enhancements
+- Mobile-responsive design for better accessibility.
+- Advanced analytics for tracking clinic performance.
+- A patient portal for accessing treatment history.
+- Payment gateway integration for online transactions.
 
-### Login Page
-![login](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/login.png)
+---
 
+## Screenshots
 
-### Physiotherapist Page
-![physiotherapist dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/physiotherapist%20dashboard.png)
+### Home Page
+![Home Page](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/home%20page.png)
 
-### Admin Dashboard
-![admin dashboard](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/admin%20dashboard.png)
+### About Us Page
+![About Us](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/about%20us.png)
 
+### Treatments Page
+![Treatments](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/treatments.png)
 
-### Forgot Password
+### Team
+![Team](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/team.png)
 
-![forgot password](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/forgot%20password.png)
-
-### Patient History
-
-![patient history](https://github.com/aryanshailech/Physiotherapy-Clinic-Web-Application/blob/main/Readme_img/patient%20history.png)
 
